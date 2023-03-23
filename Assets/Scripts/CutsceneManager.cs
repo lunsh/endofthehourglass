@@ -35,6 +35,22 @@ public class CutsceneManager : MonoBehaviour
     [SerializeField] private GameObject cutsceneButton3;
     [SerializeField] private GameObject cutscene3Wrapper;
 
+    [SerializeField] private GameObject cutscene4;
+    [SerializeField] private GameObject cutsceneText4;
+    [SerializeField] private GameObject cutsceneText42;
+    [SerializeField] private GameObject cutsceneText43;
+    [SerializeField] private GameObject cutsceneButton4;
+    [SerializeField] private GameObject cutscene4Wrapper;
+    [SerializeField] private GameObject mainScene;
+    [SerializeField] private GameObject endScene;
+
+    [SerializeField] private GameObject endingCutscene;
+    [SerializeField] private GameObject cutsceneTextend1;
+    [SerializeField] private GameObject cutsceneTextend2;
+    [SerializeField] private GameObject cutsceneTextend3;
+    [SerializeField] private GameObject cutsceneButtonend;
+    [SerializeField] private Animator scrollAnim;
+
     private void Start()
     {
         GameManager.getInstance().gameActive = false;
@@ -142,7 +158,52 @@ public class CutsceneManager : MonoBehaviour
 
     public void startCutscene4()
     {
+        GameManager.getInstance().gameActive = true;
+        cutscene4.SetActive(true);
+        cutsceneText4.SetActive(true);
+        cutsceneText42.SetActive(true);
+        cutsceneText43.SetActive(true);
+        cutsceneButton4.SetActive(true);
+    }
+    public void endCutscene4()
+    {
+        cutscene4.GetComponent<BackgroundFade>().fadeOut();
+        cutsceneButton4.GetComponent<BackgroundFade>().fadeOut();
+        StartCoroutine(cutsceneText4.GetComponent<TextFade>().fadeOut());
+        StartCoroutine(cutsceneText42.GetComponent<TextFade>().fadeOut());
+        StartCoroutine(cutsceneText43.GetComponent<TextFade>().fadeOut());
+        GameManager.getInstance().gameActive = true;
+        GameManager.getInstance().SoundPlayer.maxVolume = 1f;
+        GameManager.getInstance().SoundPlayer.playTicking();
+        setupNextScene();
+        spooky3.SetActive(false);
+        mainScene.SetActive(false);
+        endScene.SetActive(true);
+        StartCoroutine(cutscene4cleanup());
+    }
+    private IEnumerator cutscene4cleanup()
+    {
+        yield return new WaitForSeconds(1.5f);
+        cutscene4Wrapper.SetActive(false);
+    }
 
+    public void playEnding()
+    {
+        GameManager.getInstance().SoundPlayer.playEnding();
+        endingCutscene.SetActive(true);
+        cutsceneTextend1.SetActive(true);
+        cutsceneTextend2.SetActive(true);
+        cutsceneTextend3.SetActive(true);
+        cutsceneButtonend.SetActive(true);
+    }
+
+    public void scrollCredits()
+    {
+        cutsceneButtonend.SetActive(false);
+        StartCoroutine(cutsceneTextend1.GetComponent<TextFade>().fadeOut());
+        StartCoroutine(cutsceneTextend2.GetComponent<TextFade>().fadeOut());
+        StartCoroutine(cutsceneTextend3.GetComponent<TextFade>().fadeOut());
+        scrollAnim.SetBool("Scroll", true);
     }
 
     private void setupNextScene()

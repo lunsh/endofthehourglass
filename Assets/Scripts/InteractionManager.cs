@@ -15,6 +15,7 @@ public class InteractionManager : MonoBehaviour
             // hide all the children
             child.gameObject.SetActive(false);
         }
+        GameManager.getInstance().GetComponent<CustomCursor>().setRegularCursor();
         popup.SetActive(false);
     }
 }

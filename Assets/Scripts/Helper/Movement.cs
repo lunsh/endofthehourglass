@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEditor.Experimental.TerrainAPI;
-using UnityEngine.UIElements;
 using System.IO;
 
 public class Movement : MonoBehaviour

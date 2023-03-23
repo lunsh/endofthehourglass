@@ -12,9 +12,16 @@ public class SoundPlayer : MonoBehaviour
     [SerializeField] private AudioSource recordStop;
     [SerializeField] private AudioSource darkbell;
     [SerializeField] private AudioSource ticking;
+    [SerializeField] private AudioSource endingSong;
 
     public float maxVolume;
 
+    public void playEnding()
+    {
+        recordPlayer.Stop();
+        ticking.Stop();
+        endingSong.Play();
+    }
     public void playTicking()
     {
         ticking.volume = maxVolume;
